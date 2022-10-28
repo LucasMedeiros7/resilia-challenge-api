@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Pole {
+  id   String @id @default(uuid())
+  name String @unique
+
+  student Student[]
+
+  @@map("poles")
+}
+
+model Student {
+  enrollment String @id
+  name       String
+  email      String
+
+  pole_id String
+  Pole    Pole   @relation(fields: [pole_id], references: [id])
+
+  @@map("students")
+}
