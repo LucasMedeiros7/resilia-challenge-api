@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { PrismaStudentRepository } from './repositories/PrismaStudentRepository.js';
 import { StudentServices } from './services/StudentServices.js';
 
@@ -8,6 +9,7 @@ const PORT = process.env.PORT || 3333;
 const studentRepository = new PrismaStudentRepository();
 const studentServices = new StudentServices(studentRepository);
 
+app.use(cors());
 app.use(express.json());
 
 app.post('/students', async (req, res) => {

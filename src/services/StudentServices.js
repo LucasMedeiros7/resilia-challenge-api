@@ -26,7 +26,7 @@ class StudentServices {
       student => student.email === studentData.email
     );
 
-    if (!studentAlreadyExists) {
+    if (studentAlreadyExists) {
       throw new Error('Student Already exists');
     }
 
