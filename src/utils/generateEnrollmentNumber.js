@@ -1,4 +1,5 @@
-export default function generateEnrollmentNumber(allEnrollments) {
+export default function generateEnrollmentNumber(students) {
+  const allEnrollments = students.map(student => student.enrollment);
   let newEnrollment;
 
   while (allEnrollments.includes(newEnrollment) || !newEnrollment) {

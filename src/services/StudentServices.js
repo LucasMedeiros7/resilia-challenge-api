@@ -12,11 +12,9 @@ class StudentServices {
 
   async create(studentData) {
     const students = await this.studentRepository.list();
-    const allEnrollments = students.map(student => student.enrollment);
-
     await this.studentRepository.save({
       ...studentData,
-      enrollment: generateEnrollmentNumber(allEnrollments)
+      enrollment: generateEnrollmentNumber(students)
     });
   }
 
