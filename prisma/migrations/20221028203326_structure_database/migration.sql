@@ -9,7 +9,7 @@ CREATE TABLE `polos` (
 
 -- CreateTable
 CREATE TABLE `students` (
-    `enrollment` VARCHAR(191) NOT NULL,
+    `enrollment` INTEGER NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `polo_id` INTEGER NOT NULL,

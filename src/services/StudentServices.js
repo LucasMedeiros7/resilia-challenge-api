@@ -6,17 +6,22 @@ class StudentServices {
     this.studentRepository = studentRepository;
   }
 
+  async list() {
+    const students = await this.studentRepository.listAll();
+    return students;
+  }
+
   async listByPoloId(poloId) {
     const students = await this.studentRepository.listByPoloId(poloId);
     return students;
   }
 
   async create(studentData) {
-    if (!validateEmail(studentData)) {
+    if (!validateEmail(studentData.email)) {
       throw new Error('Invalid email');
     }
 
-    const students = await this.studentRepository.list();
+    const students = await this.studentRepository.listAll();
     const studentAlreadyExists = students.find(
       student => student.email === studentData.email
     );
@@ -32,8 +37,8 @@ class StudentServices {
   }
 
   async update(studentData) {
-    const studentAlreadyExists = await this.studentRepository.listByEmail(
-      studentData.email
+    const studentAlreadyExists = await this.studentRepository.listByEnrollment(
+      studentData.enrollment
     );
 
     if (!validateEmail(studentData.email) || !studentAlreadyExists) {
@@ -44,6 +49,12 @@ class StudentServices {
   }
 
   async delete(studentEnrollment) {
+    const studentAlreadyExists = await this.studentRepository.listByEnrollment(
+      studentEnrollment
+    );
+    if (!studentAlreadyExists) {
+      throw new Error('Student not found');
+    }
     await this.studentRepository.delete(studentEnrollment);
   }
 }

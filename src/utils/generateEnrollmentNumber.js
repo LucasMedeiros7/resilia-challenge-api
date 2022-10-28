@@ -9,5 +9,9 @@ export default function generateEnrollmentNumber(students) {
     }
   }
 
-  return newEnrollment;
+  if (newEnrollment[0] === '0') {
+    newEnrollment += (Math.random() * 9).toFixed();
+  }
+
+  return parseInt(newEnrollment);
 }

@@ -13,20 +13,24 @@ class PrismaStudentRepository {
       enrollment: student.enrollment,
       polo_id: student.poloId
     };
-
     await this.database.student.create({ data: newStudent });
+  }
+
+  async listAll() {
+    const students = await this.database.student.findMany();
+    return students;
   }
 
   async listByPoloId(poloId) {
     const students = await this.database.student.findMany({
-      where: { pole_id: poloId }
+      where: { polo_id: poloId }
     });
     return students;
   }
 
-  async listByEmail(studentEmail) {
+  async listByEnrollment(studentEnrollment) {
     const student = await this.database.student.findFirst({
-      where: { email: studentEmail }
+      where: { email: studentEnrollment }
     });
     return student;
   }

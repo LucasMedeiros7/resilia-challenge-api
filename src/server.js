@@ -16,14 +16,23 @@ app.post('/students', async (req, res) => {
     await studentServices.create({ name, email, poloId });
     return res.status(201).json({ name, email, poloId });
   } catch (err) {
-    return res.status(500).json({ err: err.message });
+    return res.status(400).json({ message: err.message });
   }
+});
+
+app.get('/students/:poloId', async (req, res) => {
+  const { poloId } = req.params;
+  const students = await studentServices.listByPoloId(Number(poloId));
+  if (!students) {
+    return res.status(404).json({ message: 'Students not found' });
+  }
+  return res.json(students);
 });
 
 app.get('/students', async (req, res) => {
   const students = await studentServices.list();
   if (!students) {
-    return res.status(400).json({ message: 'erro' });
+    return res.status(404).json({ message: 'Students not found' });
   }
   return res.json(students);
 });

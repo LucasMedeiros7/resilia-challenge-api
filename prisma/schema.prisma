@@ -17,7 +17,7 @@ model Polo {
 }
 
 model Student {
-  enrollment String @id
+  enrollment Int    @id
   name       String
   email      String @unique
 
