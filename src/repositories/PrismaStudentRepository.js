@@ -17,9 +17,18 @@ class PrismaStudentRepository {
     await this.database.student.create({ data: newStudent });
   }
 
-  async list() {
-    const students = await this.database.student.findMany();
+  async listByPoloId(poloId) {
+    const students = await this.database.student.findMany({
+      where: { pole_id: poloId }
+    });
     return students;
+  }
+
+  async listByEmail(studentEmail) {
+    const student = await this.database.student.findFirst({
+      where: { email: studentEmail }
+    });
+    return student;
   }
 
   async update(student) {
