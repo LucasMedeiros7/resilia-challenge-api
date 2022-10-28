@@ -7,22 +7,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Pole {
-  id   String @id @default(uuid())
+model Polo {
+  id   Int    @id @default(autoincrement())
   name String @unique
 
   student Student[]
 
-  @@map("poles")
+  @@map("polos")
 }
 
 model Student {
   enrollment String @id
   name       String
-  email      String
+  email      String @unique
 
-  pole_id String
-  Pole    Pole   @relation(fields: [pole_id], references: [id])
+  polo_id Int
+  polo    Polo @relation(fields: [polo_id], references: [id])
 
   @@map("students")
 }

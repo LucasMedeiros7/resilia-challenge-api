@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.pole.createMany({
+  await prisma.polo.createMany({
     data: [
       { name: 'Rio de Janeiro' },
       { name: 'São Paulo' },

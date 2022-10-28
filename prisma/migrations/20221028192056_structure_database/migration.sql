@@ -1,9 +1,9 @@
 -- CreateTable
-CREATE TABLE `poles` (
-    `id` VARCHAR(191) NOT NULL,
+CREATE TABLE `polos` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
 
-    UNIQUE INDEX `poles_name_key`(`name`),
+    UNIQUE INDEX `polos_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -12,10 +12,11 @@ CREATE TABLE `students` (
     `enrollment` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
-    `pole_id` VARCHAR(191) NOT NULL,
+    `polo_id` INTEGER NOT NULL,
 
+    UNIQUE INDEX `students_email_key`(`email`),
     PRIMARY KEY (`enrollment`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `students` ADD CONSTRAINT `students_pole_id_fkey` FOREIGN KEY (`pole_id`) REFERENCES `poles`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `students` ADD CONSTRAINT `students_polo_id_fkey` FOREIGN KEY (`polo_id`) REFERENCES `polos`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
