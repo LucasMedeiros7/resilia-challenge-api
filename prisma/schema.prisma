@@ -3,13 +3,14 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
 
 model Polo {
-  id   Int    @id @default(autoincrement())
-  name String @unique
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  created_at DateTime @default(now())
 
   student Student[]
 
@@ -17,9 +18,10 @@ model Polo {
 }
 
 model Student {
-  enrollment Int    @id
+  enrollment Int      @id
   name       String
-  email      String @unique
+  email      String   @unique
+  created_at DateTime @default(now())
 
   polo_id Int
   polo    Polo @relation(fields: [polo_id], references: [id])

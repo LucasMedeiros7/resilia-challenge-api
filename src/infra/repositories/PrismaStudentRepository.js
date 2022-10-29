@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
-
+import { prisma } from '../db/database.js';
 class PrismaStudentRepository {
   constructor() {
     this.database = prisma;

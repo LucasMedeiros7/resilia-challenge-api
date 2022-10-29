@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: polo-resilia
+      POSTGRES_USER: polo-resilia
+      POSTGRES_PASSWORD: polo-resilia
+    ports:
+        - 5432:5432
