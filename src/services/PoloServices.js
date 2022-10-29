@@ -11,15 +11,17 @@ class PoloServices {
   }
 
   async create(poloName) {
-    const name = formatPoloName(poloName);
     const polos = await this.poloRepository.listAll();
-    const poloAlreadyExists = polos.find(polo => polo.name === name);
+    const poloAlreadyExists = polos.find(
+      polo => polo.name.toLowerCase() === poloName.toLowerCase()
+    );
 
     if (poloAlreadyExists) {
       throw new Error('Polo Already exists');
     }
 
-    await this.studentRepository.save(name);
+    const poloNameFormatted = formatPoloName(poloName);
+    await this.poloRepository.save(poloNameFormatted);
   }
 }
 

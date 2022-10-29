@@ -1,0 +1,1 @@
+web: sh -c "npm run migrate:deploy && node src/server.js"

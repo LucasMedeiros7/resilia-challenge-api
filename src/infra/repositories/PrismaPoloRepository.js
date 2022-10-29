@@ -10,7 +10,7 @@ class PrismaPoloRepository {
     return polos;
   }
 
-  async create(name) {
+  async save(name) {
     await this.database.polo.create({ data: { name } });
   }
 }

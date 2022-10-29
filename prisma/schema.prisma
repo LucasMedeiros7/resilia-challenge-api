@@ -11,6 +11,7 @@ model Polo {
   id         Int      @id @default(autoincrement())
   name       String   @unique
   created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   student Student[]
 
@@ -26,6 +27,7 @@ model Student {
   polo    Polo @relation(fields: [polo_id], references: [id])
 
   created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   @@map("students")
 }
