@@ -50,6 +50,18 @@ app.patch('/students/:enrollment', async (req, res) => {
   }
 });
 
+app.delete('/students/:enrollment', async (req, res) => {
+  const { enrollment } = req.params;
+  try {
+    await studentServices.delete(Number(enrollment));
+    return res
+      .status(201)
+      .json({ enrollment, message: 'Student successfully deleted' });
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
