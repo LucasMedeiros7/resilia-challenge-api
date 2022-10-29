@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { PrismaStudentRepository } from './repositories/PrismaStudentRepository.js';
+import { PrismaStudentRepository } from './infra/repositories/PrismaStudentRepository.js';
 import { StudentServices } from './services/StudentServices.js';
 
 const app = express();
@@ -13,18 +13,18 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/students', async (req, res) => {
-  const { name, email, poloId } = req.body;
+  const { name, email, polo_id } = req.body;
   try {
-    await studentServices.create({ name, email, poloId });
-    return res.status(201).json({ name, email, poloId });
+    await studentServices.create({ name, email, polo_id });
+    return res.status(201).json({ name, email, polo_id });
   } catch (err) {
     return res.status(400).json({ message: err.message });
   }
 });
 
-app.get('/students/:poloId', async (req, res) => {
-  const { poloId } = req.params;
-  const students = await studentServices.listByPoloId(Number(poloId));
+app.get('/students/:polo_id', async (req, res) => {
+  const { polo_id } = req.params;
+  const students = await studentServices.listByPoloId(Number(polo_id));
   if (!students) {
     return res.status(404).json({ message: 'Students not found' });
   }
@@ -37,6 +37,17 @@ app.get('/students', async (req, res) => {
     return res.status(404).json({ message: 'Students not found' });
   }
   return res.json(students);
+});
+
+app.patch('/students/:enrollment', async (req, res) => {
+  const { enrollment } = req.params;
+  const { name, email, polo_id } = req.body;
+  try {
+    await studentServices.update(Number(enrollment), { name, email, polo_id });
+    return res.json({ enrollment, name, email, polo_id });
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
 });
 
 app.listen(PORT, () => {

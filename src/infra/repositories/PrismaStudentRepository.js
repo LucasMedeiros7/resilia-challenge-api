@@ -5,13 +5,7 @@ class PrismaStudentRepository {
   }
 
   async save(student) {
-    const newStudent = {
-      email: student.email,
-      name: student.name,
-      enrollment: student.enrollment,
-      polo_id: student.poloId
-    };
-    await this.database.student.create({ data: newStudent });
+    await this.database.student.create({ data: student });
   }
 
   async listAll() {
@@ -19,37 +13,31 @@ class PrismaStudentRepository {
     return students;
   }
 
-  async listByPoloId(poloId) {
-    const students = await this.database.student.findMany({
-      where: { polo_id: poloId }
-    });
+  async listByPoloId(polo_id) {
+    const students = await this.database.student.findMany({ where: { polo_id } });
     return students;
   }
 
   async listByEnrollment(studentEnrollment) {
     const student = await this.database.student.findFirst({
-      where: { email: studentEnrollment }
+      where: { enrollment: studentEnrollment }
     });
     return student;
   }
 
-  async update(student) {
+  async update(enrollment, updatedStudent) {
     await this.database.student.update({
-      where: {
-        enrollment: student.enrollment
-      },
+      where: { enrollment },
       data: {
-        name: student.name,
-        email: student.email,
-        polo_id: student.poloId
+        name: updatedStudent.name,
+        email: updatedStudent.email,
+        polo_id: updatedStudent.polo_id
       }
     });
   }
 
-  async delete(studentEnrollment) {
-    await this.database.student.delete({
-      where: { enrollment: studentEnrollment }
-    });
+  async delete(enrollment) {
+    await this.database.student.delete({ where: { enrollment } });
   }
 }
 

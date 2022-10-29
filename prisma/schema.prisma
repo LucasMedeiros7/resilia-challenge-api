@@ -18,13 +18,14 @@ model Polo {
 }
 
 model Student {
-  enrollment Int      @id
+  enrollment Int    @id
   name       String
-  email      String   @unique
-  created_at DateTime @default(now())
+  email      String @unique
 
   polo_id Int
   polo    Polo @relation(fields: [polo_id], references: [id])
+
+  created_at DateTime @default(now())
 
   @@map("students")
 }
