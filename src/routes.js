@@ -12,7 +12,7 @@ routes.post('/polos', poloController.create);
 routes.get('/students', studentController.list);
 routes.post('/students', studentController.create);
 routes.get('/students/:polo_id', studentController.listByPoloId);
-routes.patch('/students/:enrollment', studentController.update);
+routes.patch('/students/:enrollment', studentController.transfer);
 routes.delete('/students/:enrollment', studentController.delete);
 
 export { routes };

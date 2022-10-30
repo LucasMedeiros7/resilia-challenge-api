@@ -47,7 +47,7 @@ async function fetchRandomUser(enrollment) {
 async function createRandomStudents() {
   const students = [];
 
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 37; i++) {
     const enrollment = generateEnrollmentNumber(students);
     const randomUser = await fetchRandomUser(enrollment);
     students.push(randomUser);

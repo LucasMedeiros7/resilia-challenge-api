@@ -26,14 +26,10 @@ class PrismaStudentRepository {
     return student;
   }
 
-  async update(enrollment, updatedStudent) {
+  async update(enrollment, polo_id) {
     await this.database.student.update({
       where: { enrollment },
-      data: {
-        name: updatedStudent.name,
-        email: updatedStudent.email,
-        polo_id: updatedStudent.polo_id
-      }
+      data: { polo_id }
     });
   }
 

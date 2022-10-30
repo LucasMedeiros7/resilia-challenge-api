@@ -6,7 +6,9 @@ class PrismaPoloRepository {
   }
 
   async listAll() {
-    const polos = await this.database.polo.findMany();
+    const polos = await this.database.polo.findMany({
+      include: { students: true }
+    });
     return polos;
   }
 

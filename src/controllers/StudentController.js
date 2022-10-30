@@ -33,13 +33,21 @@ export function StudentController() {
       return response.json(students);
     },
 
-    async update(request, response) {
-      const { enrollment } = request.params;
-      const { name, email, polo_id } = request.body;
+    async transfer(request, response) {
+      const enrollment = Number(request.params.enrollment);
+      const { polo_id } = request.body;
       try {
-        await studentServices.update(Number(enrollment), { name, email, polo_id });
-        return response.json({ enrollment, name, email, polo_id });
+        if (!polo_id) {
+          return response.status(400).json({ message: 'Check your input' });
+        }
+        await studentServices.transfer({ enrollment, polo_id });
+        return response
+          .status(201)
+          .json({ message: 'Student transferred successfully' });
       } catch (err) {
+        if (err.message.includes('prisma')) {
+          err.message = 'Invalid polo_id';
+        }
         return response.status(400).json({ message: err.message });
       }
     },

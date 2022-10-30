@@ -36,18 +36,12 @@ class StudentServices {
     });
   }
 
-  async update(enrollment, updatedStudentData) {
+  async transfer({ enrollment, polo_id }) {
     const studentExists = await this.studentRepository.listByEnrollment(enrollment);
-
     if (!studentExists) {
       throw new Error('There are no students with this enrollment');
     }
-
-    if (!validateEmail(updatedStudentData.email)) {
-      throw new Error('Invalid email');
-    }
-
-    await this.studentRepository.update(enrollment, updatedStudentData);
+    await this.studentRepository.update(enrollment, polo_id);
   }
 
   async delete(studentEnrollment) {

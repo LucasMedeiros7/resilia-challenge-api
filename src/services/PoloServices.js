@@ -1,4 +1,5 @@
 import formatPoloName from '../utils/formatPoloName.js';
+import normalizeName from '../utils/normalizeName.js';
 
 class PoloServices {
   constructor(poloRepository) {
@@ -13,13 +14,11 @@ class PoloServices {
   async create(poloName) {
     const polos = await this.poloRepository.listAll();
     const poloAlreadyExists = polos.find(
-      polo => polo.name.toLowerCase() === poloName.toLowerCase()
+      polo => normalizeName(polo.name) === normalizeName(poloName)
     );
-
     if (poloAlreadyExists) {
       throw new Error('Polo Already exists');
     }
-
     const poloNameFormatted = formatPoloName(poloName);
     await this.poloRepository.save(poloNameFormatted);
   }
